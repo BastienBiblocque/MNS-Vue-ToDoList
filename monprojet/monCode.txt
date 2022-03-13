@@ -1,0 +1,120 @@
+<!--<template>
+  <div id="app" class="min-h-screen h-full" style="background: #edf2f7;">
+    <div class="flex items-center justify-center">
+      <div class="w-full flex items-center justify-center font-sans">
+        <div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg overflow-y-auto">
+          <div class="mb-4">
+            <h1 class="text-3xl text-gray-900">Ma Todo</h1>
+            <div class="flex mt-4">
+              <input class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-gray-700" v-model="$data.addValue" v-on:keyup.enter="add" placeholder="Add Todo">
+              <button class="flex p-2 border-2 rounded text-blue-500 border-blue-500 hover:text-white hover:bg-blue-500" @click="add">Ajouter</button>
+            </div>
+          </div>
+          <div class="mb-5">
+            <div class="mb-2">
+              {{$data.rate.toFixed(2)}} % réalisé
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+              <div class="bg-blue-600 h-2.5 rounded-full"  v-bind:style="{ width: $data.rate + '%' }" ></div>
+            </div>
+          </div>
+          <div>
+            <div v-for=" (data, i) in $data.task.slice(paginationToDo, $data.page*elementPerPage)" :key="i">
+              <div class="mb-4 items-center grid grid-cols-8">
+                <p :class="data.done  ? 'line-through':null" class="w-full text-gray-900 col-span-4">{{data.name}}</p>
+                <button v-if="data.done" class="col-span-2 flex p-2 ml-4 mr-2 border-2 rounded hover:text-white text-gray-500 border-gray-500 hover:bg-gray-500" @click="notDone(i+$data.page*elementPerPage-elementPerPage)">Pas fait</button>
+                <button  v-else class="col-span-2 flex p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-500 border-green-500 hover:bg-green-500" @click="done(i+$data.page*elementPerPage-elementPerPage)">Fait</button>
+                <button class="col-span-2 flex p-2 ml-2 border-2 rounded text-red-500 border-red-500 hover:text-white hover:bg-red-500" @click="supprimer(i+$data.page*elementPerPage-elementPerPage)">Supprimer</button>
+              </div>
+            </div>
+          </div>
+          <div class="flex">
+            <div class="mx-auto">
+              <button class="p-4 border-black rounded-l-md border-y-2 border-l-2 cursor-pointer hover:bg-blue-200" @click="goTo(1)">&lsaquo;&lsaquo;</button>
+              <button v-if="$data.page - 1 > 0" class="p-4 border-black border-y-2 hover:bg-blue-200" @click="goTo($data.page - 1)">{{$data.page - 1}}</button>
+              <button class="p-4 bg-blue-400 border-black border-y-2" >{{$data.page}}</button>
+              <button v-if="$data.page + 1 <= ($data.task.length /elementPerPage).toFixed(0)" class="p-4 border-black border-y-2 hover:bg-blue-200" @click="goTo($data.page + 1)">{{$data.page + 1}}</button>
+              <button class="p-4 rounded-r-md border-y-2 border-r-2 cursor-pointer border-black hover:bg-blue-200" @click="goTo(($data.task.length /elementPerPage).toFixed(0))">&rsaquo;&rsaquo;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+
+export default {
+  name: 'App',
+  created() {
+    const taskFromStorage = localStorage.getItem('task');
+    if (taskFromStorage) {
+      const taskParse = JSON.parse(taskFromStorage);
+      if (taskParse.length>0){
+        this.$data.task = taskParse;
+      }
+    }
+  },
+  beforeDestroy: function() {
+    localStorage.setItem('task', JSON.stringify(this.$data.task));
+    alert(this.$data.task)
+  },
+  data(){
+    return {
+      task: [
+        {
+          name: 'Ajouter une tache',
+          done:false,
+        },
+      ],
+      addValue: '',
+      rate:0,
+      page:1,
+      elementPerPage:3,
+    };
+  },
+  mounted:function(){
+    this.setRate();
+  },
+  computed: {
+    // un accesseur (getter) calculé
+    paginationToDo: function () {
+      // `this` pointe sur l'instance vm
+      return (this.$data.page * this.$data.elementPerPage -this.$data.elementPerPage);
+    }
+    },
+  methods:{
+    add(){
+      this.$data.task.push({name:this.$data.addValue,done:false});
+      this.setRate();
+    },
+    done(i){
+      this.$data.task[i].done = true;
+      this.setRate();
+    },
+    notDone(i) {
+      this.$data.task[i].done = false;
+      this.setRate();
+    },
+    supprimer(i) {
+      this.$data.task.splice(i,1);
+      this.setRate();
+    },
+    setRate(){
+      let count = 0;
+      for (let i = 0; i< this.$data.task.length;i++){
+        if (this.$data.task[i].done){
+          count++;
+        }
+      }
+      this.$data.rate = count / this.$data.task.length * 100;
+    },
+    goTo(i){
+      this.$data.page = i;
+    },
+  }
+}
+
+
+</script>-->
