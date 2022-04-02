@@ -70,12 +70,12 @@ export const store = new Vuex.Store({
                 state.currentTodo = response.data
                 });
     },
-      updateTodo(state,payload){
-          axios
-              .patch(`http://localhost:3000/api/v1/todos/${payload.id}`,{query: {description: payload.description}})
-              .then(async ()=>{
-                  router.push(`/todo`)
-              });
+  updateTodo(state,payload){
+      axios
+          .patch(`http://localhost:3000/api/v1/todos/${payload.id}`,{query: {description: payload.description}})
+          .then(async ()=>{
+              router.push(`/todo`)
+          });
     },
   },
   actions: {

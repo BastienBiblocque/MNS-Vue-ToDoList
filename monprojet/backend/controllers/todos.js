@@ -15,7 +15,6 @@ exports.postItem = (req, res) => {
     Todo.create({description:req.body.query.description, done:false}).then((todos)=>{
         res.status(200).json(todos)
     }).catch(error=> res.status(400).json({error}))
-
 }
 exports.patchItem = (req, res) => {
     Todo.updateOne({_id:req.params.id},req.body.query).then((todos)=>{

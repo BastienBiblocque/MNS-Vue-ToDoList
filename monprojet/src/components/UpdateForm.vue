@@ -1,5 +1,7 @@
 <script>
 
+import axios from "axios";
+
 export default {
   name: 'UpdateForm',
   data: function () {
@@ -8,9 +10,13 @@ export default {
       id:'',
     }
   },
-  mounted() {
-    this.description = this.$store.state.currentTodo.description;
+  async mounted() {
     this.id = this.$route.params.id;
+    await axios
+        .get(`http://localhost:3000/api/v1/todos/${this.$route.params.id}`)
+        .then(async (response) => {
+          this.description = response.data.description;
+        });
   },
   methods:{
     _updateTodo(){
