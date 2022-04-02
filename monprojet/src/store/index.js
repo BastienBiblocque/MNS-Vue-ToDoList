@@ -8,6 +8,7 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
   state: {
     todos: [],
+    last3todos: [],
     currentTodo:{}
   },
   getters: {
@@ -63,6 +64,16 @@ export const store = new Vuex.Store({
             });
           })
     },
+      getLast3TodoFromApi(state){
+      axios
+          .get('http://localhost:3000/api/v1/todos/',{ params: { limit: 3 } })
+          .then(async (response)=>{
+            state.last3todos = [];
+            response.data.forEach((element)=>{
+              state.last3todos.push(element)
+            });
+          })
+    },
     getOneTodoFromApi(state,id){
         axios
             .get(`http://localhost:3000/api/v1/todos/${id}`)
@@ -92,7 +103,12 @@ export const store = new Vuex.Store({
       commit('editTodo',payload.id)
     },
     actionGetTodoFromApi({commit}){
-      commit('getTodoFromApi')
+      commit('getTodoFromApi');
+      commit('getLast3TodoFromApi');
+    },
+    actionGetLast3TodoFromApi({commit}){
+      commit('getLast3TodoFromApi');
+      commit('getTodoFromApi');
     },
   actionGetOneTodoFromApi({commit},payload){
       commit('getOneTodoFromApi',payload)

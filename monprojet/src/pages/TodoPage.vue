@@ -25,6 +25,6 @@ import GetDataFromApi from "@/components/GetDataFromApi";
 
 export default {
   name: 'App',
-  components: {TaskCard, ProgressBar, TodoInput,GetDataFromApi},
+  components: {TaskCard, ProgressBar, TodoInput, GetDataFromApi},
 }
 </script>

@@ -1,16 +1,16 @@
 <template>
   <div id="app" class="min-h-screen h-full" style="background: #edf2f7;">
     <div class="flex items-center justify-center">
-      <div class="w-full flex items-center justify-center font-sans">
-        Bienvenue mon gars
-      </div>
+        <LastTodo />
     </div>
   </div>
 </template>
 
 <script>
 
+import LastTodo from "@/components/LastTodo";
 export default {
   name: 'App',
+  components: {LastTodo},
 }
 </script>

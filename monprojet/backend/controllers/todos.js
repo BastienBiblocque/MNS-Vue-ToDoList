@@ -1,7 +1,7 @@
 const Todo = require('../models/TodoModels')
 
 exports.list = (req,res) =>{
-    Todo.find().then((todos)=>{
+    Todo.find().sort({$natural:-1}).limit(req.query.limit).then((todos)=>{
         res.status(200).json(todos)
     }).catch(error=> res.status(400).json({error}))
 }
